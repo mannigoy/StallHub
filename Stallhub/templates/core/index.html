@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — Market Management System</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    h1 { font-size: 24px; margin-bottom: 4px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-decoration: none; color: inherit; display: block; }
+    .card:hover { border-color: #999; }
+    .card h2 { font-size: 16px; margin: 0 0 6px; }
+    .card p { font-size: 13px; color: #666; margin: 0; }
+  </style>
+</head>
+<body>
+  <p style="color:#999; font-size:13px;">Market Management System</p>
+  <h1>Dashboard</h1>
+  <p class="subtitle">Select a module to manage your public market operations.</p>
+
+  <div class="grid">
+    <a href="/stalls" class="card"><h2>Stalls</h2><p>Markets, categories, stall listings and occupancy.</p></a>
+    <a href="/vendors" class="card"><h2>Vendors</h2><p>Vendor profiles, documents, and violations.</p></a>
+    <a href="/payments" class="card"><h2>Payments</h2><p>Rental payments and payment history.</p></a>
+    <a href="/rentals" class="card"><h2>Rentals</h2><p>Rental agreements between vendors and stalls.</p></a>
+    <a href="/maintenance" class="card"><h2>Maintenance</h2><p>Maintenance requests and inspections.</p></a>
+    <a href="/users" class="card"><h2>Users</h2><p>User accounts, admins, and audit logs.</p></a>
+  </div>
+</body>
+</html>
