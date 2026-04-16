@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Maintenance Request</title>
+</head>
+<body>
+    <h1>New Maintenance Request</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit request</button>
+    </form>
+
+
+    <h2>All Maintenance Requests</h2>
+    <table border="1" cellpadding="6" style="border-collapse:collapse; margin-top:20px;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Stall</th>
+                <th>Requested By</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for req in all_requests %}
+            <tr>
+                <td>{{ req.request_id }}</td>
+                <td>{{ req.stall }}</td>
+                <td>{% if req.requested_by %}{{ req.requested_by.username }}{% else %}<i>None</i>{% endif %}</td>
+                <td>{{ req.issue_description|truncatechars:40 }}</td>
+                <td>{{ req.request_date }}</td>
+                <td>{{ req.get_status_display }}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6" style="text-align:center;">No maintenance requests found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'maintenance:index' %}">Back to maintenance dashboard</a>
+</body>
+</html>
+
