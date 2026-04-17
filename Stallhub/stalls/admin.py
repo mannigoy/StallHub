@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Stall  # change to your model name
 
-# Register your models here.
+admin.site.register(Stall)
+
