@@ -5,4 +5,5 @@ app_name = 'stalls'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('NewStall/', views.add_stall, name='add_stall')
 ]
