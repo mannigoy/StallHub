@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Stall  # change to your model name
+from .models import Stall
 
 admin.site.register(Stall)
-
