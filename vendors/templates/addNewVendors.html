@@ -1,0 +1,22 @@
+<h2>Add Vendor</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>User:</label><br>
+    {{ form.user }}<br><br>
+
+    <label>Full name:</label><br>
+    {{ form.full_name }}<br><br>
+
+    <label>Contact number:</label><br>
+    {{ form.contact_number }}<br><br>
+
+    <label>Address:</label><br>
+    {{ form.address }}<br><br>
+
+    <label>Registration Date:</label><br>
+    {{ form.registration_date }}<br><br>
+
+    <button type="submit">Save</button>
+</form>
