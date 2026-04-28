@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RentalAgreementForm
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'rentals/index.html')
 
 def add_record(request):
     if request.method == 'POST':
@@ -13,4 +13,4 @@ def add_record(request):
     else:
         form = RentalAgreementForm()
 
-    return render(request, 'addNewRentalAgreement.html', {'form': form})
+    return render(request, 'rentals/addNewRentalAgreement.html', {'form': form})

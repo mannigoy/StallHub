@@ -10,7 +10,7 @@ class Vendor(models.Model):
     full_name = models.CharField(max_length=200)
     contact_number = models.CharField(max_length=20)
     address = models.TextField()
-    registration_date = models.DateField(auto_now_add=True)
+    registration_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.full_name
