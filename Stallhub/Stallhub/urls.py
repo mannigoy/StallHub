@@ -3,7 +3,7 @@ from django.urls import path, include
 from rentals import views
 
 urlpatterns = [
-    path('', views.index),  # "/" → index.html
+
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('maintenance/', include('maintenance.urls')),
