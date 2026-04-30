@@ -47,11 +47,12 @@ def add_stall(request):
         form = StallForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('stalls:add')  # stay on same page
+            return redirect('stalls:add')
     else:
         form = StallForm()
 
-    return render(request, 'stalls/addNewStall.html', {'form': form})
+  #  return render(request, 'stalls/addNewStall.html', {'form': form})
+    return render(request, 'stalls/addNewStall.html', {'form': form, 'user_name': request.user.first_name})
 
 
 def index(request):
