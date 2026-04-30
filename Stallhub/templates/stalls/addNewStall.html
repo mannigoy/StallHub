@@ -1,20 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Stall</title>
-</head>
-<body>
+<h2>Stall Home</h2>
 
-<h1>Add New Stall</h1>
+<a href="{% url 'stalls:edit_profile' %}">Edit Profile</a>
+<a href="{% url 'stalls:add' %}">Add New Record</a>
+<a href="{% url 'stalls:logout' %}">Log Out</a>
+
+<hr>
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
 
-    <button type="submit">Save</button>
+    <label>Stall number:</label><br>
+    <input type="text" name="stall_number"><br><br>
+
+    <label>Location:</label><br>
+
+    <select name="location">
+        <option value="">Select a location in Cebu</option>
+        <option value="cebu_city">Cebu City</option>
+        <option value="mandaue">Mandaue City</option>
+        <option value="lapu_lapu">Lapu-Lapu City</option>
+        <option value="talisay">Talisay City</option>
+        <option value="consolacion">Consolacion</option>
+        <option value="minglanilla">Minglanilla</option>
+        <option value="naga">Naga City</option>
+        <option value="carcar">Carcar City</option>
+    </select>
+
+    <br><br>
+
+    <label>Monthly rent:</label><br>
+    <input type="text" name="monthly_rent" id="rent"><br><br>
+
+    <script>
+    document.getElementById("rent").addEventListener("input", function (e) {
+    let value = e.target.value.replace(/,/g, "");
+
+    if (!isNaN(value) && value !== "") {
+        e.target.value = Number(value).toLocaleString("en-US");
+    }
+    });
+    </script>
+
+
+    <label>Operating hours:</label><br>
+
+    <select name="operating_hours">
+        <option value="">Select operating hours</option>
+        <option value="6am-2pm">6:00 AM - 2:00 PM</option>
+        <option value="7am-3pm">7:00 AM - 3:00 PM</option>
+        <option value="8am-5pm">8:00 AM - 5:00 PM </option>
+        <option value="9am-6pm">9:00 AM - 6:00 PM</option>
+        <option value="10am-7pm">10:00 AM - 7:00 PM</option>
+        <option value="24hrs">24 Hours</option>
+        <option value="custom">Custom Schedule</option>
+    </select>
+
+    <br><br>
+
+    <label>Market:</label><br>
+    <select name="market">
+        <option value="public_market">Public Market</option>
+        <option value="mall">Mall</option>
+        <option value="street_market">Street Market</option>
+    </select><br><br>
+
+    <label>Category:</label><br>
+    <select name="category">
+        <option value="food">Food</option>
+        <option value="clothing">Clothing</option>
+        <option value="electronics">Electronics</option>
+        <option value="services">Services</option>
+    </select><br><br>
+
+    <button type="submit">Add</button>
 </form>
-
-<a href="/">Back</a>
-
-</body>
-</html>
