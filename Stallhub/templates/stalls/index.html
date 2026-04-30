@@ -1,34 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
+
     <title>StallHub</title>
-</head>
-<body>
-<h1>StallHub</h1>
-<p>Welcome to Stall Management System</p>
-<h1>Stalls List</h1>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Location</th>
-    </tr>
-
-    {% for stall in stalls %}
-    <tr>
-        <td>{{ stall.id }}</td>
-        <td>{{ stall.name }}</td>
-        <td>{{ stall.location }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">No records yet</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<a href="{% url 'stalls:add_stall' %}">Add New Stall</a>
 
 </body>
 </html>
