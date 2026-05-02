@@ -6,10 +6,10 @@
     <label>User:</label><br>
     {{ form.user }}<br><br>
 
-    <label>Full name:</label><br>
+    <label>Full Name:</label><br>
     {{ form.full_name }}<br><br>
 
-    <label>Contact number:</label><br>
+    <label>Contact Number:</label><br>
     {{ form.contact_number }}<br><br>
 
     <label>Address:</label><br>
@@ -18,5 +18,6 @@
     <label>Registration Date:</label><br>
     {{ form.registration_date }}<br><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Vendor</button>
 </form>
+<a href="{% url 'vendors:dashboard' %}">← Back to Home</a>
