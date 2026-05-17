@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<h2>Edit Profile</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Username:</label><br>
+    <input type="text" name="username" value="{{ request.user.username }}"><br><br>
+    <button type="submit">Update</button>
+</form>
+
+<br>
+
+<a href="/">Back to Home</a><br><br>
+<a href="/users/logout/">Logout</a>
+
+</body>
+</html>
