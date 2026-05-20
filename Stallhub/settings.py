@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'Stallhub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stallhub_db',
+        'NAME': 'stallhub',
         'USER': 'root',
-        'PASSWORD': 'SARDINAScornedbeef212',
+        'PASSWORD': 'CrystalixFlaye#3',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
