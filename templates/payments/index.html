@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head><title>Payments</title></head>
+<body>
+  <h1>Payments</h1>
+
+  <p>
+    <a href="{% url 'payments:add_payment' %}">Add Payment</a> |
+    <a href="{% url 'payments:add_payment_method' %}">Add Payment Method</a> |
+    <a href="/">Back to Dashboard</a>
+  </p>
+
+  <h2>Recent Payments</h2>
+  {% if payments %}
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Agreement</th>
+          <th>Method</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Period</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for payment in payments %}
+          <tr>
+            <td>{{ payment.payment_id }}</td>
+            <td>{{ payment.agreement }}</td>
+            <td>{{ payment.payment_method|default:'-' }}</td>
+            <td>{{ payment.amount_paid }}</td>
+            <td>{{ payment.get_payment_status_display }}</td>
+            <td>{{ payment.get_payment_period_display }}</td>
+            <td>{{ payment.period_month|default:'-' }}</td>
+            <td>{{ payment.period_year|default:'-' }}</td>
+            <td>{{ payment.payment_date }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No payments recorded yet.</p>
+  {% endif %}
+
+  <h2>Payment Methods</h2>
+  {% if methods %}
+    <ul>
+      {% for method in methods %}
+        <li>{{ method.method_name }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No payment methods yet.</p>
+  {% endif %}
+</body>
+</html>

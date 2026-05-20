@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add Payment Method</title></head>
+<body>
+  <h1>Add Payment Method</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Method</button>
+  </form>
+
+  <p><a href="{% url 'payments:index' %}">Back to Payments</a></p>
+</body>
+</html>
+

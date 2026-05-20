@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Record — StallHub</title>
+</head>
+<body>
+
+  <nav>
+    <span>StallHub</span><br>
+    <a href="{% url 'users:dashboard' %}">Dashboard</a><br>
+    <a href="{% url 'users:edit_profile' %}">Edit Profile</a><br>
+    <a href="{% url 'users:logoff' %}">Log Off</a>
+  </nav>
+
+  <main>
+    <h1>Add New Record</h1>
+    <p>Choose a module to add a new record to.</p>
+
+    <div>
+        <!---
+      <a href="{% url 'stalls:add_stall' %}">New Stall</a><br>
+      <a href="{% url 'vendors:addNewVendors' %}">New Vendor</a><br>
+      <a href="/payments/new/">New Payment</a><br>
+      <a href="{% url 'rentals:add_record' %}">New Rental</a><br>
+      --->
+      <a href="{% url 'maintenance:add_new_maintenance_request' %}">
+        New Maintenance Request
+      </a>
+    </div>
+  </main>
+
+</body>
+</html>

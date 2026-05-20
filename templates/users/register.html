@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — StallHub</title>
+
+</head>
+<body>
+  <div class="container">
+    <div class="brand">StallHub</div>
+    <div class="brand-sub">Create an account</div>
+
+    {% if errors %}
+      <div class="error">
+        <ul class="errors-list">
+          {% for err in errors %}
+            <li>{{ err }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" value="{{ form_data.username|default:'' }}" required autofocus>
+
+      <label for="password1">Password</label>
+      <input type="password" id="password1" name="password1" required>
+
+      <label for="password2">Confirm Password</label>
+      <input type="password" id="password2" name="password2" required>
+
+      <button type="submit" class="btn">Create Account</button>
+    </form>
+
+    <div class="footer-link">
+      Already have an account? <a href="{% url 'users:login' %}">Sign in</a>
+    </div>
+  </div>
+</body>
+</html>

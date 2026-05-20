@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — StallHub</title>
+</head>
+<body>
+
+  <nav>
+    <span>StallHub</span>
+   <div>
+  <span>Username: {{ request.session.username }}</span><br>
+  <a href="{% url 'users:edit_profile' %}">Edit Profile</a><br>
+  <a href="{% url 'users:add_record' %}">Add New Record</a><br>
+  <a href="{% url 'users:logoff' %}">Log Off</a>
+</div>
+  </nav>
+
+  <main>
+    <div>Market Management System</div>
+    <h1>Dashboard</h1>
+    <p>Select a module to manage your public market operations.</p>
+
+    <div>
+      <a href="/stalls/">Stalls</a><br>
+      <a href="/vendors/">Vendors</a><br>
+      <a href="/payments/">Payments</a><br>
+      <a href="/rentals/">Rentals</a><br>
+      <a href="/maintenance/">Maintenance</a><br>
+      <a href="/users/">Users</a>
+    </div>
+
+
+  </main>
+
+</body>
+</html>
