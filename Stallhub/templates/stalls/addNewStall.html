@@ -8,71 +8,37 @@
 
 <hr>
 
+<!-- ================= ADD STALL FORM ================= -->
+<h2>Add New Stall</h2>
+
 <form method="POST">
     {% csrf_token %}
 
-    <label>Stall number:</label><br>
-    <input type="text" name="stall_number"><br><br>
-
-    <label>Location:</label><br>
-
-    <select name="location">
-        <option value="">Select a location in Cebu</option>
-        <option value="cebu_city">Cebu City</option>
-        <option value="mandaue">Mandaue City</option>
-        <option value="lapu_lapu">Lapu-Lapu City</option>
-        <option value="talisay">Talisay City</option>
-        <option value="consolacion">Consolacion</option>
-        <option value="minglanilla">Minglanilla</option>
-        <option value="naga">Naga City</option>
-        <option value="carcar">Carcar City</option>
-    </select>
-
-    <br><br>
-
-    <label>Monthly rent:</label><br>
-    <input type="text" name="monthly_rent" id="rent"><br><br>
-
-    <script>
-    document.getElementById("rent").addEventListener("input", function (e) {
-    let value = e.target.value.replace(/,/g, "");
-
-    if (!isNaN(value) && value !== "") {
-        e.target.value = Number(value).toLocaleString("en-US");
-    }
-    });
-    </script>
+    <label>Stall Number:</label><br>
+    <input type="text" name="stall_number" required><br><br>
 
 
-    <label>Operating hours:</label><br>
+    <label>Monthly Rent:</label><br>
+    <input type="number" name="monthly_rent" step="0.01"><br><br>
 
-    <select name="operating_hours">
-        <option value="">Select operating hours</option>
-        <option value="6am-2pm">6:00 AM - 2:00 PM</option>
-        <option value="7am-3pm">7:00 AM - 3:00 PM</option>
-        <option value="8am-5pm">8:00 AM - 5:00 PM </option>
-        <option value="9am-6pm">9:00 AM - 6:00 PM</option>
-        <option value="10am-7pm">10:00 AM - 7:00 PM</option>
-        <option value="24hrs">24 Hours</option>
-        <option value="custom">Custom Schedule</option>
-    </select>
 
-    <br><br>
 
-    <label>Market:</label><br>
-    <select name="market">
-        <option value="public_market">Public Market</option>
-        <option value="mall">Mall</option>
-        <option value="street_market">Street Market</option>
-    </select><br><br>
-
-    <label>Category:</label><br>
-    <select name="category">
-        <option value="food">Food</option>
-        <option value="clothing">Clothing</option>
-        <option value="electronics">Electronics</option>
-        <option value="services">Services</option>
-    </select><br><br>
-
-    <button type="submit">Add</button>
+    <button type="submit">Save Stall</button>
 </form>
+
+<hr>
+
+
+<h2>Active Stalls</h2>
+
+{% for stall in stalls %}
+    <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc;">
+
+        <b>Stall:</b> {{ stall.stall_number }} <br>
+
+        <b>Status:</b> {{ stall.status }}
+
+    </div>
+{% empty %}
+    <p>No stalls added yet.</p>
+{% endfor %}
