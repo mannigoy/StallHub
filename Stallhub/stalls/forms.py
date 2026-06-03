@@ -33,3 +33,11 @@ class StallForm(forms.ModelForm):
         self.fields['operating_hours'].empty_label = "Select Operating Hours"
         self.fields['market'].empty_label = "Select Market"
         self.fields['category'].empty_label = "Select Category"
+
+    def clean_stall_number(self):
+        stall_number = self.cleaned_data.get('stall_number')
+
+        if Stall.objects.filter(stall_number=stall_number).exists():
+            raise forms.ValidationError("This stall number already exists. Please enter a different stall number.")
+
+        return stall_number

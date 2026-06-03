@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from .forms import StallForm
 from .models import Stall
@@ -44,11 +44,18 @@ def add_stall(request):
         return redirect('stalls:login')
 
     if request.method == 'POST':
-        form = StallForm(request.POST)
+        post_data = request.POST.copy()
+
+        if 'monthly_rent' in post_data:
+            post_data['monthly_rent'] = post_data['monthly_rent'].replace(',', '')
+
+        form = StallForm(post_data)
 
         if form.is_valid():
             form.save()
             return redirect('stalls:add')
+        else:
+            print(form.errors)
     else:
         form = StallForm()
 
@@ -71,4 +78,16 @@ def logout_view(request):
     logout(request)
     return redirect('stalls:login')
 
+
+def delete_stall(request, stall_id):
+    if not request.user.is_authenticated:
+        return redirect('stalls:login')
+
+    stall = get_object_or_404(Stall, stall_id=stall_id)
+
+    if request.method == 'POST':
+        stall.delete()
+        return redirect('stalls:add')
+
+    return redirect('stalls:add')
 

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users','rentals','stalls', 'maintenance', 'payments', 'vendors','core'
+    'users','rentals','stalls', 'maintenance', 'payments', 'vendors','core',
+    'django.contrib.humanize',
 ]
 
 
@@ -78,8 +79,6 @@ WSGI_APPLICATION = 'Stallhub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-       # 'NAME': BASE_DIR / 'db.sqlite3',
-
         'NAME': 'stallhub',
         'USER': 'root',
         'PASSWORD': 'root',

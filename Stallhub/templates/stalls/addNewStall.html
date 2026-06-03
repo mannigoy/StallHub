@@ -1,44 +1,137 @@
+{% load humanize %}
+
+<style>
+    .peso-input {
+        position: relative;
+        display: inline-block;
+    }
+
+    .peso-sign {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        color: #333;
+        pointer-events: none;
+    }
+
+    .peso-input input {
+        padding-left: 28px;
+        width: 180px;
+    }
+
+    .peso-input input::-webkit-outer-spin-button,
+    .peso-input input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .peso-input input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
 <h1>Stall Home</h1>
 
 <h2>Hello, {{ user_name }}!</h2>
 
 <a href="{% url 'stalls:edit_profile' %}">Edit Profile</a>
-<a href="{% url 'stalls:add' %}">Add New Record</a>
 <a href="{% url 'stalls:logout' %}">Log Out</a>
 
 <hr>
 
-<!-- ================= ADD STALL FORM ================= -->
 <h2>Add New Stall</h2>
+
 
 <form method="POST">
     {% csrf_token %}
 
+    {% if form.errors %}
+        <div style="color: red; margin-bottom: 10px;">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
     <label>Stall Number:</label><br>
-    <input type="text" name="stall_number" required><br><br>
+    <input
+        type="text"
+        name="stall_number"
+        value="{% if edit_mode %}{{ stall.stall_number }}{% endif %}"
+        required
+    ><br><br>
 
+<label>Monthly Rent:</label><br>
 
-    <label>Monthly Rent:</label><br>
-    <input type="number" name="monthly_rent" step="0.01"><br><br>
+<div class="peso-input">
+    <span class="peso-sign">₱</span>
+    <input
+        type="text"
+        id="monthly_rent"
+        name="monthly_rent"
+        required
+    >
+</div>
 
-
-
-    <button type="submit">Save Stall</button>
+<br><br>
+<button type="submit">Add Stall</button>
 </form>
 
 <hr>
 
-
-<h2>Active Stalls</h2>
+<h2>Added Stalls </h2>
 
 {% for stall in stalls %}
     <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc;">
 
         <b>Stall:</b> {{ stall.stall_number }} <br>
+        <b>Status:</b> {{ stall.status }} <br>
+        <b>Monthly Rent:</b> ₱{{ stall.monthly_rent|floatformat:2|intcomma }} <br><br>
 
-        <b>Status:</b> {{ stall.status }}
+        <form
+            action="{% url 'stalls:delete_stall' stall.stall_id %}"
+            method="POST"
+            style="display:inline;"
+        >
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this stall?');">
+                Delete
+            </button>
+        </form>
 
     </div>
 {% empty %}
     <p>No stalls added yet.</p>
 {% endfor %}
+
+<script>
+    const monthlyRentInput = document.getElementById('monthly_rent');
+
+    function formatWithCommas(value) {
+        value = value.replace(/,/g, '');
+        value = value.replace(/[^0-9.]/g, '');
+
+        let parts = value.split('.');
+
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+            parts = value.split('.');
+        }
+
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        return parts.join('.');
+    }
+
+    if (monthlyRentInput) {
+        monthlyRentInput.addEventListener('input', function () {
+            this.value = formatWithCommas(this.value);
+        });
+
+        const stallForm = monthlyRentInput.closest('form');
+
+        stallForm.addEventListener('submit', function () {
+            monthlyRentInput.value = monthlyRentInput.value.replace(/,/g, '');
+        });
+    }
+</script>
