@@ -41,7 +41,7 @@
 
 <hr>
 
-<h2>Add New Stall</h2>
+<h2>{% if edit_mode %}Edit Stall{% else %}Add New Stall{% endif %}</h2>
 
 
 <form method="POST">
@@ -69,12 +69,18 @@
         type="text"
         id="monthly_rent"
         name="monthly_rent"
+        value="{% if edit_mode %}{{ stall.monthly_rent|floatformat:2|intcomma }}{% endif %}"
         required
     >
 </div>
 
 <br><br>
-<button type="submit">Add Stall</button>
+<button type="submit">{% if edit_mode %}Update Stall{% else %}Add Stall{% endif %}</button>
+
+{% if edit_mode %}
+    <a href="{% url 'stalls:add' %}">Cancel Edit</a>
+{% endif %}
+
 </form>
 
 <hr>
@@ -87,6 +93,10 @@
         <b>Stall:</b> {{ stall.stall_number }} <br>
         <b>Status:</b> {{ stall.status }} <br>
         <b>Monthly Rent:</b> ₱{{ stall.monthly_rent|floatformat:2|intcomma }} <br><br>
+
+        <a href="{% url 'stalls:edit_stall' stall.stall_id %}">
+            Edit
+        </a>
 
         <form
             action="{% url 'stalls:delete_stall' stall.stall_id %}"

@@ -91,3 +91,30 @@ def delete_stall(request, stall_id):
 
     return redirect('stalls:add')
 
+def edit_stall(request, stall_id):
+    if not request.user.is_authenticated:
+        return redirect('stalls:login')
+
+    stall = get_object_or_404(Stall, stall_id=stall_id)
+
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+
+        if 'monthly_rent' in post_data:
+            post_data['monthly_rent'] = post_data['monthly_rent'].replace(',', '')
+
+        form = StallForm(post_data, instance=stall)
+
+        if form.is_valid():
+            form.save()
+            return redirect('stalls:add')
+    else:
+        form = StallForm(instance=stall)
+
+    return render(request, 'stalls/addNewStall.html', {
+        'form': form,
+        'user_name': request.user.first_name,
+        'stalls': Stall.objects.all().order_by('-stall_id'),
+        'edit_mode': True,
+        'stall': stall,
+    })

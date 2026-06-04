@@ -1,5 +1,7 @@
 from django import forms
 from .models import Stall
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 class StallForm(forms.ModelForm):
@@ -37,7 +39,13 @@ class StallForm(forms.ModelForm):
     def clean_stall_number(self):
         stall_number = self.cleaned_data.get('stall_number')
 
-        if Stall.objects.filter(stall_number=stall_number).exists():
+        existing_stall = Stall.objects.filter(stall_number=stall_number)
+
+        if self.instance and self.instance.pk:
+            existing_stall = existing_stall.exclude(pk=self.instance.pk)
+
+        if existing_stall.exists():
             raise forms.ValidationError("This stall number already exists. Please enter a different stall number.")
 
         return stall_number
+

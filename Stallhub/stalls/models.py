@@ -58,4 +58,4 @@ class Stall(models.Model):
     category = models.ForeignKey(StallCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='stalls')
 
     def __str__(self):
-        return f"Stall {self.stall_number} - {self.status}"
+     return f"Stall {self.stall_number} - {self.status}"
