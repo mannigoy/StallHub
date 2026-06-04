@@ -1,10 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Index</title>
+    <title>Vendors</title>
 </head>
 <body>
-    <h1>Welcome to Vendors</h1>
-   <a href="{% url 'vendors:addNewVendors' %}">Add Vendor</a>
+<h2>Vendors</h2>
+<a href="{% url 'vendors:addNewVendors' %}">Add New Vendor</a>
+<br><br>
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Contact Number</th>
+        <th>Address</th>
+        <th>Registration Date</th>
+        <th>Document Type</th>
+        <th>Expiry Date</th>
+        <th>Actions</th>
+    </tr>
+    {% for item in vendor_data %}
+    <tr>
+        <td>{{ item.vendor.vendor_id }}</td>
+        <td>{{ item.vendor.full_name }}</td>
+        <td>{{ item.vendor.contact_number }}</td>
+        <td>{{ item.vendor.address }}</td>
+        <td>
+            {% if item.vendor.registration_date %}
+                {{ item.vendor.registration_date|date:"Y-m-d" }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+        <td>{{ item.document.document_type|default:"—" }}</td>
+        <td>
+            {% if item.document.expiry_date %}
+                {{ item.document.expiry_date|date:"Y-m-d" }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'vendors:edit_vendor' item.vendor.vendor_id %}">Edit</a>
+            |
+            <a href="{% url 'vendors:delete_vendor' item.vendor.vendor_id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="8">No vendors yet.</td>
+    </tr>
+    {% endfor %}
+</table>
+
 </body>
 </html>

@@ -1,0 +1,8 @@
+<h3>Delete Vendor</h3>
+<p>Are you sure you want to delete {{ vendor.full_name }}?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'vendors:index' %}">Cancel</a>
+</form>
+

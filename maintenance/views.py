@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from .forms import MaintenanceRequestForm
 
@@ -25,4 +25,40 @@ def add_new_maintenance_request(request):
         request,
         'maintenance/add_new_maintenance_request.html',
         {'form': form, 'all_requests': all_requests},
+    )
+
+
+def edit_maintenance_request(request, request_id):
+    from .models import MaintenanceRequest
+    maintenance_request = get_object_or_404(MaintenanceRequest, request_id=request_id)
+
+    if request.method == 'POST':
+        form = MaintenanceRequestForm(request.POST, instance=maintenance_request)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Maintenance request updated successfully.')
+            return redirect('maintenance:add_new_maintenance_request')
+    else:
+        form = MaintenanceRequestForm(instance=maintenance_request)
+
+    return render(
+        request,
+        'maintenance/edit_maintenance_request.html',
+        {'form': form, 'maintenance_request': maintenance_request},
+    )
+
+
+def delete_maintenance_request(request, request_id):
+    from .models import MaintenanceRequest
+    maintenance_request = get_object_or_404(MaintenanceRequest, request_id=request_id)
+
+    if request.method == 'POST':
+        maintenance_request.delete()
+        messages.success(request, 'Maintenance request deleted successfully.')
+        return redirect('maintenance:add_new_maintenance_request')
+
+    return render(
+        request,
+        'maintenance/delete_maintenance_request.html',
+        {'maintenance_request': maintenance_request},
     )

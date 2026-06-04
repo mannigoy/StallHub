@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Maintenance Request</title>
+</head>
+<body>
+    <h1>Delete Maintenance Request</h1>
+
+    <p>Are you sure you want to delete request #{{ maintenance_request.request_id }}?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <a href="{% url 'maintenance:add_new_maintenance_request' %}">Cancel</a>
+    </form>
+</body>
+</html>
+

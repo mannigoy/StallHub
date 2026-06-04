@@ -1,5 +1,5 @@
 from django import forms
-from .models import Vendor
+from .models import Vendor, VendorDocument
 
 class VendorForm(forms.ModelForm):
 
@@ -11,3 +11,14 @@ class VendorForm(forms.ModelForm):
     class Meta:
         model = Vendor
         fields = ['user', 'full_name', 'contact_number', 'address', 'registration_date']
+
+
+class VendorDocumentForm(forms.ModelForm):
+    expiry_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+
+    class Meta:
+        model = VendorDocument
+        fields = ['document_type', 'expiry_date']

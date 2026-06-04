@@ -7,8 +7,8 @@ class Vendor(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='vendor_profile', null=True, blank=True
     )
-    full_name = models.CharField(max_length=200)
-    contact_number = models.CharField(max_length=20)
+    full_name = models.CharField(max_length=200, unique=True)
+    contact_number = models.CharField(max_length=20, unique=True)
     address = models.TextField()
     registration_date = models.DateTimeField(null=True, blank=True)
 
@@ -17,11 +17,29 @@ class Vendor(models.Model):
 
 
 class VendorDocument(models.Model):
+    DOCUMENT_CHOICES = [
+        ('vendor_application_form', 'Vendor Application / Stall Booking Form'),
+        ('letter_of_intent', 'Letter of Intent'),
+        ('stall_proposal_menu', 'Stall Proposal / Menu'),
+        ('business_mayors_permit', "Business Permit / Mayor's Permit"),
+        ('dti_sec_registration', 'DTI or SEC Registration'),
+        ('bir_certificate', 'BIR Certificate of Registration (Form 2303)'),
+        ('government_id', 'Government-Issued ID'),
+        ('health_sanitation_permit', 'Health and Sanitation Permit'),
+        ('food_business_license', 'Food Business License'),
+        ('food_handlers_certificate', "Food Handler's Certificate"),
+        ('medical_health_certificate', 'Medical / Health Certificate & Vaccination Card'),
+        ('proof_of_payment', 'Proof of Payment'),
+        ('certificate_of_insurance', 'Certificate of Insurance'),
+        ('waiver_clearance', 'Waiver of Rights / Clearance'),
+        ('other', 'Other'),
+    ]
+
     document_id = models.AutoField(primary_key=True)
     vendor = models.ForeignKey(
         Vendor, on_delete=models.CASCADE, related_name='documents'
     )
-    document_type = models.CharField(max_length=100)
+    document_type = models.CharField(max_length=100, choices=DOCUMENT_CHOICES)
     expiry_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
