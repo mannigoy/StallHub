@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Payment</title>
+</head>
+<body>
+
+  <h1>Edit Payment</h1>
+
+  <p>
+    <a href="{% url 'payments:index' %}">← Back to Payments</a>
+  </p>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <table>
+      {{ form.as_table }}
+    </table>
+
+    <br>
+
+    <button type="submit">Save Changes</button>
+    <a href="{% url 'payments:index' %}">Cancel</a>
+  </form>
+
+</body>
+</html>
