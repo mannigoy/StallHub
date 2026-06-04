@@ -7,8 +7,8 @@ class Vendor(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='vendor_profile', null=True, blank=True
     )
-    full_name = models.CharField(max_length=200)
-    contact_number = models.CharField(max_length=20)
+    full_name = models.CharField(max_length=200, unique=True)
+    contact_number = models.CharField(max_length=20, unique=True)
     address = models.TextField()
     registration_date = models.DateTimeField(null=True, blank=True)
 
